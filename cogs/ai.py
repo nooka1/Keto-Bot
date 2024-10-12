@@ -20,9 +20,13 @@ class AI(commands.Cog, name="AI"):
         self.bot = bot
         self.bot.allowed_mentions = discord.AllowedMentions.none()
         self.openai = AsyncOpenAI(api_key=os.getenv("OPENAI_TOKEN"), base_url=os.getenv("OPENAI_URL"))
-        self.models = ["gpt-4o-mini", "gpt-4o", "o1-mini", "o1-preview", "claude-3-5-sonnet-20240620"]
-        self.approved_guilds = [213072459115528193]
-        self.approved_users = [99656214966706176, 1242863285368393738]
+        self.models = ["gpt-4o-mini", "gpt-4o", "o1-mini", "o1-preview", "claude-3-5-sonnet-20240620", "chatgpt-4o-latest", "llama-3.1-sonar-huge-128k-online", "Llama-3.2-11B-Vision-Instruct-Turbo"]
+        
+        approved_guilds_str = os.getenv('OPENAI_APPROVED_GUILDS')
+        self.approved_guilds = [int(guild_id) for guild_id in approved_guilds_str.split(',')]
+        
+        approved_users_str= os.getenv('OPENAI_APPROVED_USERS')
+        self.approved_users = [int(user_id) for user_id in approved_users_str.split(',')]
 
     async def models_autocompletion(
         self, interaction: Interaction, current: str
@@ -36,7 +40,7 @@ class AI(commands.Cog, name="AI"):
 
     @commands.hybrid_command(
         name="chatgpt",
-        description="Talk with ChatGPT.",
+        description="Talk with ChatGPT. Context is not remembered.",
     )
     @app_commands.autocomplete(model=models_autocompletion)
     @app_commands.allowed_installs(guilds=True, users=True)
