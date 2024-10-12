@@ -29,6 +29,3 @@ Credits:
 - [GIRRewrite](https://github.com/DiscordGIR/GIRRewrite)
 - [Python-Discord-Bot-Template](https://github.com/kkrypt0nn/Python-Discord-Bot-Template)
 
----
-
-![Mashiro Shiina from The Pet Girl of Sakurasou](https://i.imgur.com/MZbB58z.jpg)

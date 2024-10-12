@@ -19,8 +19,8 @@ class AI(commands.Cog, name="AI"):
     def __init__(self, bot):
         self.bot = bot
         self.bot.allowed_mentions = discord.AllowedMentions.none()
-        self.openai = AsyncOpenAI(api_key=os.getenv("OPENAI_TOKEN"))
-        self.models = ["gpt-4o-mini", "gpt-4o", "o1-mini", "o1-preview"]
+        self.openai = AsyncOpenAI(api_key=os.getenv("OPENAI_TOKEN"), base_url=os.getenv("OPENAI_URL"))
+        self.models = ["gpt-4o-mini", "gpt-4o", "o1-mini", "o1-preview", "claude-3-5-sonnet-20240620"]
         self.approved_guilds = [213072459115528193]
         self.approved_users = [99656214966706176, 1242863285368393738]
 
@@ -98,7 +98,9 @@ class AI(commands.Cog, name="AI"):
                 model=model,
                 messages=prompt,
             )
-            response = completion.choices[0].message.content
+            if isinstance(completion,str):
+                response = completion
+            else: response = completion.choices[0].message.content
             if len(response) > 4096:
                 messages = []
                 for i in range(0, len(response), 4096):
