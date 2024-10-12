@@ -21,8 +21,8 @@ class AI(commands.Cog, name="AI"):
         self.bot.allowed_mentions = discord.AllowedMentions.none()
         self.openai = AsyncOpenAI(api_key=os.getenv("OPENAI_TOKEN"))
         self.models = ["gpt-4o-mini", "gpt-4o", "o1-mini", "o1-preview"]
-        self.approved_guilds = [1088982024150323230, 1185004960925098144]
-        self.approved_users = [1088593923661893703, 275370518008299532]
+        self.approved_guilds = [213072459115528193]
+        self.approved_users = [99656214966706176, 1242863285368393738]
 
     async def models_autocompletion(
         self, interaction: Interaction, current: str
